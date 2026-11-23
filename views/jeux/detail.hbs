@@ -1,0 +1,10 @@
+{{#if jeu}}
+  <h1>{{jeu.titre}}</h1>
+  <!-- TODO : date, éditeur, tags, note, avis -->
+  <a href="/jeux/{{jeu.id}}/modifier">Modifier</a>
+  <form method="post" action="/jeux/{{jeu.id}}/supprimer">
+    <button type="submit">Supprimer</button>
+  </form>
+{{else}}
+  <p>Jeu introuvable.</p>
+{{/if}}
