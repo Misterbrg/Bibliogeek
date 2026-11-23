@@ -1,13 +1,1 @@
-{{#if editeur}}
-  <h1>{{editeur.nom}}</h1>
-  <h2>Ses jeux</h2>
-  {{#each editeur.jeux}}
-    {{> carte-jeu}}
-  {{/each}}
-  <a href="/editeurs/{{editeur.id}}/modifier">Modifier</a>
-  <form method="post" action="/editeurs/{{editeur.id}}/supprimer">
-    <button type="submit">Supprimer</button>
-  </form>
-{{else}}
-  <p>Maison d'édition introuvable.</p>
-{{/if}}
+{{!-- F8 : détail d'une maison d'édition et ses jeux --}}
