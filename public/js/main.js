@@ -1,1 +1,1 @@
-// Scripts côté navigateur (étoiles, confirmations...)
+// JavaScript côté navigateur

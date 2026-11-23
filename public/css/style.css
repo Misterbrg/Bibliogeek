@@ -1,6 +1,1 @@
-/* Styles globaux de Bibliogeek */
-* { box-sizing: border-box; }
-body { margin: 0; font-family: system-ui, sans-serif; }
-header, footer { padding: 1rem 2rem; }
-header nav a { margin-left: 1rem; }
-main { padding: 2rem; }
+/* Styles du site */
