@@ -3,8 +3,8 @@ const { defineConfig } = require("drizzle-kit");
 
 module.exports = defineConfig({
     dialect: "sqlite",
-    schema: "./db/schema.js",
-    out: "./db/migrations",
+    schema: "./src/db/schema.js",
+    out: "./src/db/migrations",
     dbCredentials: {
         url: process.env.DATABASE_URL,
     },

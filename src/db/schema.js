@@ -1,6 +1,6 @@
 // Tables Drizzle : jeux, editeurs, tags, utilisateurs + tables de liaison.
 const {sql} = require("drizzle-orm");
-const {sqliteTable, integer, text} = require("drizzle-orm/sqlite-core");
+const { sqliteTable, sqliteView, integer, text, real, primaryKey } = require("drizzle-orm/sqlite-core");
 
 export const maison = sqliteTable("maison_d_edition", {
   id: integer("ID_Maison").primaryKey({ autoIncrement: true }),
@@ -52,3 +52,5 @@ export const suitMaison = sqliteTable("suit_maison", {
   userId: integer("ID_Users").references(() => utilisateur.id),
   maisonId: integer("ID_Maison").references(() => maison.id, { onDelete: "cascade" }),
 }, (t) => [primaryKey({ columns: [t.userId, t.maisonId] })]);
+
+module.exports = { maison, jeu, tag, utilisateur, jeuTag, noteJeu, likeTag, suitMaison};
