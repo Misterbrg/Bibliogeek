@@ -1,1 +1,0 @@
-// JavaScript côté navigateur
