@@ -1,0 +1,441 @@
+{
+  "version": "6",
+  "dialect": "sqlite",
+  "id": "b814a291-9e3b-42c1-b43b-ed5872aa9010",
+  "prevId": "00000000-0000-0000-0000-000000000000",
+  "tables": {
+    "maison_d_edition": {
+      "name": "maison_d_edition",
+      "columns": {
+        "ID_Maison": {
+          "name": "ID_Maison",
+          "type": "integer",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": true
+        },
+        "Name_Maison": {
+          "name": "Name_Maison",
+          "type": "text(100)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "Photo_Profil_Maison": {
+          "name": "Photo_Profil_Maison",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {}
+    },
+    "jeu": {
+      "name": "jeu",
+      "columns": {
+        "ID_Game": {
+          "name": "ID_Game",
+          "type": "integer",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": true
+        },
+        "Name_Game": {
+          "name": "Name_Game",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "Date_Parution_Game": {
+          "name": "Date_Parution_Game",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "Description_Game": {
+          "name": "Description_Game",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "ID_Maison": {
+          "name": "ID_Maison",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "jeu_ID_Maison_maison_d_edition_ID_Maison_fk": {
+          "name": "jeu_ID_Maison_maison_d_edition_ID_Maison_fk",
+          "tableFrom": "jeu",
+          "tableTo": "maison_d_edition",
+          "columnsFrom": [
+            "ID_Maison"
+          ],
+          "columnsTo": [
+            "ID_Maison"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {}
+    },
+    "utilisateur": {
+      "name": "utilisateur",
+      "columns": {
+        "ID_Users": {
+          "name": "ID_Users",
+          "type": "integer",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": true
+        },
+        "Nom_Users": {
+          "name": "Nom_Users",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "Prenom_Users": {
+          "name": "Prenom_Users",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "Pseudo_Users": {
+          "name": "Pseudo_Users",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "Mail_Users": {
+          "name": "Mail_Users",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "MDP_Users": {
+          "name": "MDP_Users",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {}
+    },
+    "tag": {
+      "name": "tag",
+      "columns": {
+        "ID_Tag": {
+          "name": "ID_Tag",
+          "type": "integer",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": true
+        },
+        "Name_Tag": {
+          "name": "Name_Tag",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {}
+    },
+    "jeu_tag": {
+      "name": "jeu_tag",
+      "columns": {
+        "ID_Game": {
+          "name": "ID_Game",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "ID_Tag": {
+          "name": "ID_Tag",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "jeu_tag_ID_Game_jeu_ID_Game_fk": {
+          "name": "jeu_tag_ID_Game_jeu_ID_Game_fk",
+          "tableFrom": "jeu_tag",
+          "tableTo": "jeu",
+          "columnsFrom": [
+            "ID_Game"
+          ],
+          "columnsTo": [
+            "ID_Game"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "jeu_tag_ID_Tag_tag_ID_Tag_fk": {
+          "name": "jeu_tag_ID_Tag_tag_ID_Tag_fk",
+          "tableFrom": "jeu_tag",
+          "tableTo": "tag",
+          "columnsFrom": [
+            "ID_Tag"
+          ],
+          "columnsTo": [
+            "ID_Tag"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {
+        "jeu_tag_ID_Game_ID_Tag_pk": {
+          "columns": [
+            "ID_Game",
+            "ID_Tag"
+          ],
+          "name": "jeu_tag_ID_Game_ID_Tag_pk"
+        }
+      },
+      "uniqueConstraints": {},
+      "checkConstraints": {}
+    },
+    "note_jeu": {
+      "name": "note_jeu",
+      "columns": {
+        "ID_Users": {
+          "name": "ID_Users",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "ID_Game": {
+          "name": "ID_Game",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "Notation": {
+          "name": "Notation",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "Commentaire": {
+          "name": "Commentaire",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "note_jeu_ID_Users_utilisateur_ID_Users_fk": {
+          "name": "note_jeu_ID_Users_utilisateur_ID_Users_fk",
+          "tableFrom": "note_jeu",
+          "tableTo": "utilisateur",
+          "columnsFrom": [
+            "ID_Users"
+          ],
+          "columnsTo": [
+            "ID_Users"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "note_jeu_ID_Game_jeu_ID_Game_fk": {
+          "name": "note_jeu_ID_Game_jeu_ID_Game_fk",
+          "tableFrom": "note_jeu",
+          "tableTo": "jeu",
+          "columnsFrom": [
+            "ID_Game"
+          ],
+          "columnsTo": [
+            "ID_Game"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {
+        "note_jeu_ID_Users_ID_Game_pk": {
+          "columns": [
+            "ID_Users",
+            "ID_Game"
+          ],
+          "name": "note_jeu_ID_Users_ID_Game_pk"
+        }
+      },
+      "uniqueConstraints": {},
+      "checkConstraints": {}
+    },
+    "like_tag": {
+      "name": "like_tag",
+      "columns": {
+        "ID_Users": {
+          "name": "ID_Users",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "ID_Tag": {
+          "name": "ID_Tag",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "Favori": {
+          "name": "Favori",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "like_tag_ID_Users_utilisateur_ID_Users_fk": {
+          "name": "like_tag_ID_Users_utilisateur_ID_Users_fk",
+          "tableFrom": "like_tag",
+          "tableTo": "utilisateur",
+          "columnsFrom": [
+            "ID_Users"
+          ],
+          "columnsTo": [
+            "ID_Users"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "like_tag_ID_Tag_tag_ID_Tag_fk": {
+          "name": "like_tag_ID_Tag_tag_ID_Tag_fk",
+          "tableFrom": "like_tag",
+          "tableTo": "tag",
+          "columnsFrom": [
+            "ID_Tag"
+          ],
+          "columnsTo": [
+            "ID_Tag"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {
+        "like_tag_ID_Users_ID_Tag_pk": {
+          "columns": [
+            "ID_Users",
+            "ID_Tag"
+          ],
+          "name": "like_tag_ID_Users_ID_Tag_pk"
+        }
+      },
+      "uniqueConstraints": {},
+      "checkConstraints": {}
+    },
+    "suit_maison": {
+      "name": "suit_maison",
+      "columns": {
+        "ID_Users": {
+          "name": "ID_Users",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "ID_Maison": {
+          "name": "ID_Maison",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "suit_maison_ID_Users_utilisateur_ID_Users_fk": {
+          "name": "suit_maison_ID_Users_utilisateur_ID_Users_fk",
+          "tableFrom": "suit_maison",
+          "tableTo": "utilisateur",
+          "columnsFrom": [
+            "ID_Users"
+          ],
+          "columnsTo": [
+            "ID_Users"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "suit_maison_ID_Maison_maison_d_edition_ID_Maison_fk": {
+          "name": "suit_maison_ID_Maison_maison_d_edition_ID_Maison_fk",
+          "tableFrom": "suit_maison",
+          "tableTo": "maison_d_edition",
+          "columnsFrom": [
+            "ID_Maison"
+          ],
+          "columnsTo": [
+            "ID_Maison"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {
+        "suit_maison_ID_Users_ID_Maison_pk": {
+          "columns": [
+            "ID_Users",
+            "ID_Maison"
+          ],
+          "name": "suit_maison_ID_Users_ID_Maison_pk"
+        }
+      },
+      "uniqueConstraints": {},
+      "checkConstraints": {}
+    }
+  },
+  "views": {},
+  "enums": {},
+  "_meta": {
+    "schemas": {},
+    "tables": {},
+    "columns": {}
+  },
+  "internal": {
+    "indexes": {}
+  }
+}
