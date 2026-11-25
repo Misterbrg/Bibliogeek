@@ -1,0 +1,12 @@
+<h1>{{title}}</h1>
+
+<div class="grid-container">
+    {{#each jeux}}
+        <div class="card">
+            <h2>{{this.nameGame}}</h2>
+            <p>Éditeur : {{this.nomMaison}}</p>
+            <p>Note : ⭐ {{this.noteGeneral}} / 5</p>
+            <a href="/jeux/{{this.idGame}}">Voir les détails</a>
+        </div>
+    {{/each}}
+</div>
