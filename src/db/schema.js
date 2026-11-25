@@ -2,74 +2,53 @@
 const {sql} = require("drizzle-orm");
 const {sqliteTable, integer, text} = require("drizzle-orm/sqlite-core");
 
-const Maison_d_Edition = sqliteTable("Maison_d_Edition", {
-    ID_Maison: integer("ID_Maison").primaryKey({autoIncrement: true}),
-    Name_Maison: text("Name_Maison").notNull(),
-    Photo_Profil_Maison: text("Photo_Profil_Maison").notNull(),
-    Nbr_Abonnee_Maison: integer("Nbr_Abonnee_Maison").notNull(),
-    Date_Creation_Maison: integer("Date_Creation_Maison", { mode: "timestamp" }).notNull(),
+export const maison = sqliteTable("maison_d_edition", {
+  id: integer("ID_Maison").primaryKey({ autoIncrement: true }),
+  nom: text("Name_Maison", { length: 100 }).notNull(),
+  photo: text("Photo_Profil_Maison"),
 });
 
-const Jeu = sqliteTable("Jeu", {
-    ID_Game: integer("ID_Game").primaryKey({autoIncrement: true}),
-    Name_Game: text("Name_Game").notNull(),
-    Description_Game: text("Description_Game").notNull(),
-    Date_Parrution_Game: integer("Date_Parution_Game", { mode: "timestamp" }).notNull(),
-    Maison_Edition_Game: integer("Maison_Edition_Game").references(() => Maison_d_Edition.ID_Maison),
+export const jeu = sqliteTable("jeu", {
+  id: integer("ID_Game").primaryKey({ autoIncrement: true }),
+  nom: text("Name_Game").notNull(),
+  date: text("Date_Parution_Game"),            // "2024-05-12"
+  description: text("Description_Game"),
+  maisonId: integer("ID_Maison").references(() => maison.id), // (1,1) => notNull si tu veux
 });
 
-const Tag = sqliteTable("Tag", {
-    ID_Tag: integer("ID_Tag").primaryKey({autoIncrement: true}),
-    Name_Tag: text("Name_Tag").notNull(),
-    Nbr_Like_Tag: integer("Nbr_Like_Tag").notNull(),
+export const tag = sqliteTable("tag", {
+  id: integer("ID_Tag").primaryKey({ autoIncrement: true }),
+  nom: text("Name_Tag").notNull(),
 });
 
-const Utilisateur = sqliteTable("Utilisateur", {
-    ID_User: integer("ID_User").primaryKey({autoIncrement: true}),
-    Name_User: text("Name_User").notNull().unique(),
-    Nom_User: text("Nom_User").notNull(),
-    Prenom_User: text("Prenom_User").notNull(),
-    Email_User: text("Email_User").notNull(),
-    Password_User: text("Password_User").notNull(),
-    Photo_Profil_User: text("Photo_Profil_User").notNull(),
-    Nbr_Abonnement_User: integer("Nbr_Abonnement_User").notNull(),
-    Nbr_Favorite_User: integer("Nbr_Favorite_User").notNull(),
+export const utilisateur = sqliteTable("utilisateur", {
+  id: integer("ID_Users").primaryKey({ autoIncrement: true }),
+  nom: text("Nom_Users").notNull(),
+  prenom: text("Prenom_Users").notNull(),
+  pseudo: text("Pseudo_Users").notNull(),
+  mail: text("Mail_Users").notNull(),
+  mdp: text("MDP_Users").notNull(),
 });
 
-const Un_Utilisateur_Like_LEJEU = sqliteTable("Un_Utilisateur_Like_LEJEU", {
-    ID_Like: integer("ID_Like").primaryKey({autoIncrement: true}),
-    ID_User: integer("ID_User").references(() => Utilisateur.ID_User),
-    ID_Game: integer("ID_Game").references(() => Jeu.ID_Game),
-    note: integer("note").notNull(),
-    commentaire: text("commentaire"),
-    date: integer("date", { mode: "timestamp" }).notNull().default(sql`(unixepoch())`),
-});
+export const jeuTag = sqliteTable("jeu_tag", {
+  jeuId: integer("ID_Game").references(() => jeu.id, { onDelete: "cascade" }),
+  tagId: integer("ID_Tag").references(() => tag.id, { onDelete: "cascade" }),
+}, (t) => [primaryKey({ columns: [t.jeuId, t.tagId] })]);
 
-const Le_Jeu_a_unTHEME = sqliteTable("Le_Jeu_a_unTHEME", {
-    ID_Theme: integer("ID_Theme").primaryKey({autoIncrement: true}),
-    ID_Game: integer("ID_Game").references(() => Jeu.ID_Game),
-    Name_Theme: text("Name_Theme").notNull(),
-});
+export const noteJeu = sqliteTable("note_jeu", {
+  userId: integer("ID_Users").references(() => utilisateur.id),
+  jeuId: integer("ID_Game").references(() => jeu.id, { onDelete: "cascade" }),
+  notation: integer("Notation"),
+  commentaire: text("Commentaire"),
+}, (t) => [primaryKey({ columns: [t.userId, t.jeuId] })]);
 
-const Une_Maison_a_un_jeu = sqliteTable("Une_Maison_a_un_jeu", {
-    ID_Maison: integer("ID_Maison").references(() => Maison_d_Edition.ID_Maison),
-    ID_Game: integer("ID_Game").references(() => Jeu.ID_Game),
-});
+export const likeTag = sqliteTable("like_tag", {
+  userId: integer("ID_Users").references(() => utilisateur.id),
+  tagId: integer("ID_Tag").references(() => tag.id),
+  favori: integer("Favori"),
+}, (t) => [primaryKey({ columns: [t.userId, t.tagId] })]);
 
-const Utilisateur_suit_Maison = sqliteTable("Utilisateur_suit_Maison", {
-    ID_Abonnee: integer("ID_Abonnee").primaryKey({autoIncrement: true}),
-    ID_User: integer("ID_User").references(() => Utilisateur.ID_User),
-    ID_Maison: integer("ID_Maison").references(() => Maison_d_Edition.ID_Maison),
-});
-
-const Un_Utilisateur_Like_UNTAG = sqliteTable("Un_Utilisateur_Like_UNTAG", {
-    ID_Like: integer("ID_Like").primaryKey({autoIncrement: true}),
-    ID_User: integer("ID_User").references(() => Utilisateur.ID_User),
-    ID_Tag: integer("ID_Tag").references(() => Tag.ID_Tag),
-});
-
-
-
-
-
-module.exports = { Maison_d_Edition, Jeu, Tag, Utilisateur, Un_Utilisateur_Like_LEJEU, Le_Jeu_a_unTHEME, Une_Maison_a_un_jeu, Utilisateur_suit_Maison, Un_Utilisateur_Like_UNTAG};
+export const suitMaison = sqliteTable("suit_maison", {
+  userId: integer("ID_Users").references(() => utilisateur.id),
+  maisonId: integer("ID_Maison").references(() => maison.id, { onDelete: "cascade" }),
+}, (t) => [primaryKey({ columns: [t.userId, t.maisonId] })]);

@@ -1,1 +1,13 @@
 {{!-- F2 : liste des jeux --}}
+<h1>Les jeux</h1>
+<a href="/jeux/nouveau">+ Ajouter un jeu</a>
+<ul>
+  {{#each jeux}}
+    <li>
+      <a href="/jeux/{{id}}">{{nom}}</a> ({{maison}}) – {{date}}
+      {{#if note}}★ {{note}}/5{{else}}pas encore noté{{/if}}
+    </li>
+  {{else}}
+    <li>Aucun jeu pour le moment.</li>
+  {{/each}}
+</ul>

@@ -1,1 +1,17 @@
 {{!-- F1 / F4 : formulaire d'ajout et de modification d'un jeu --}}
+<h1>{{titre}}</h1>
+<form method="post" action="{{action}}">
+  <input name="nom" value="{{jeu.nom}}" placeholder="Titre" required>
+  <input type="date" name="date" value="{{jeu.date}}">
+  <textarea name="description">{{jeu.description}}</textarea>
+
+  <select name="maisonId">
+    {{#each maisons}}<option value="{{id}}" {{#if choisie}}selected{{/if}}>{{nom}}</option>{{/each}}
+  </select>
+
+  {{#each tags}}
+    <label><input type="checkbox" name="tags" value="{{id}}" {{#if coche}}checked{{/if}}> {{nom}}</label>
+  {{/each}}
+
+  <button>Enregistrer</button>
+</form>

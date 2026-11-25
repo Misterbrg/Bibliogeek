@@ -1,1 +1,13 @@
 {{!-- F3 : détail d'un jeu (tags, éditeur) --}}
+<h1>{{jeu.nom}}</h1>
+<p>Sorti le {{jeu.date}} – éditeur : <a href="/maisons/{{editeur.id}}">{{editeur.nom}}</a></p>
+<p>{{jeu.description}}</p>
+<p>Tags : {{#each tags}}<span class="tag">{{nom}}</span> {{/each}}</p>
+
+<h2>Avis</h2>
+{{#each avis}}<p>{{notation}}/5 – {{commentaire}}</p>{{/each}}
+
+<a href="/jeux/{{jeu.id}}/modifier">Modifier</a>
+<form method="post" action="/jeux/{{jeu.id}}/supprimer" onsubmit="return confirm('Supprimer ?')">
+  <button>Supprimer</button>
+</form>
