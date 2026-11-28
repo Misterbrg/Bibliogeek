@@ -13,5 +13,3 @@ app.get("/", async (req, res) => {
         console.error("Erreur chargement accueil :", error);
     }
 });
-
-module.exports = app;

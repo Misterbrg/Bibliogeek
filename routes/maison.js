@@ -1,38 +1,31 @@
+const express = require("express");
 const db = require("../db/index");
-const {bibliogeek} = require("../db/schema");
-const app = express();
+const {maison, suitMaison, jeu} = require("../db/schema");
+const router = express.Router();
 
-// 1. Liste des maisons (GET /maisons)
 router.get("/", async (req, res) => {
-    try {
-        const maisons = await db.select().from(maisonDEditionTable);
-        res.render("maison/liste", {
-            title: "Nos Maisons d'Édition",
-            maisons,
-        });
-    } catch (error) {
-        console.error("Erreur liste maisons :", error);
-        res.status(500).send("Erreur serveur");
+    try{
+        const Houses = await db.select().from(maison);
+        res.render("views/maison/liste", {Houses});
+    } catch(error){
+        console.error(error);
+        res.status(500).render("error", { status: 500, message: "Erreur interne du serveur" });
     }
 });
 
-// 2. Détail d'une maison (GET /maisons/:id)
 router.get("/:id", async (req, res) => {
-    try {
-        const id = Number(req.params.id);
-        const [maison] = await db
-            .select()
-            .from(maisonDEditionTable)
-            .where(eq(maisonDEditionTable.idMaison, id));
+    try{
+    const id = Number(req.params.id);
+    const publisher = await db.select().from(maison).where(eq(maison.id, id));
 
+    const games = await db.select().from(jeu).where(eq(jeu.maisonId, id));
 
-        res.render("maison/detail", {
-            title: maison.nameMaison,
-            maison,
-        });
-    } catch (error) {
-        console.error("Erreur détail maison :", error);
+    const followers = await db.select({ followers: count() }).from(suitMaison).where(eq(suitMaison.maisonId, id));
+    res.render("views/maison/detail", { publisher, games, followers });
+    }catch(error){
+        console.error(error);
+        res.status(500).render("error", { status: 500, message: "Erreur interne du serveur" });
     }
 });
 
-module.exports = app;
+module.exports = router;
