@@ -1,0 +1,28 @@
+<h1>Bibliogeek</h1>
+
+<h2>Les meilleurs jeux</h2>
+<ul>
+    {{#each bestGames}}
+        <li><a href="/games/{{id}}">{{title}}</a> : {{round rating}}/5 ({{reviewCount}} avis)</li>
+    {{else}}
+        <li>Aucun jeu noté pour le moment.</li>
+    {{/each}}
+</ul>
+
+<h2>Tags populaires</h2>
+<ul>
+    {{#each popularTags}}
+        <li>{{name}} ({{likes}} like{{#if likes}}s{{/if}})</li>
+    {{else}}
+        <li>Aucun tag.</li>
+    {{/each}}
+</ul>
+
+<h2>Consultés récemment</h2>
+<ul>
+    {{#each recentGames}}
+        <li><a href="/games/{{id}}">{{title}}</a></li>
+    {{else}}
+        <li>Vous n'avez consulté aucun jeu pour le moment.</li>
+    {{/each}}
+</ul>

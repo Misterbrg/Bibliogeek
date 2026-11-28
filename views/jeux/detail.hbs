@@ -1,0 +1,19 @@
+<h1>{{game.title}}</h1>
+<p>Sorti le {{formatDate game.releaseDate}}, édité par <a href="/publishers/{{publisher.id}}">{{publisher.name}}</a></p>
+<p>{{game.description}}</p>
+
+<p>Tags :
+    {{#each tags}}<span class="tag">{{name}}</span> {{else}}aucun{{/each}}
+</p>
+
+<h2>Avis</h2>
+{{#each reviews}}
+    <p><strong>{{username}}</strong> : {{rating}}/5 {{comment}}</p>
+{{else}}
+    <p>Aucun avis.</p>
+{{/each}}
+
+<a href="/games/{{game.id}}/edit">Modifier</a>
+<form method="POST" action="/games/{{game.id}}/delete">
+    <button type="submit">Supprimer</button>
+</form>

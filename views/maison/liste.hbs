@@ -1,0 +1,9 @@
+<h1>Les maisons d'édition</h1>
+<a href="/publishers/new">+ Ajouter une maison d'édition</a>
+<ul>
+    {{#each publishers}}
+        <li><a href="/publishers/{{id}}">{{name}}</a></li>
+    {{else}}
+        <li>Aucune maison d'édition.</li>
+    {{/each}}
+</ul>

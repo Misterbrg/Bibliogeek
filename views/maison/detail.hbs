@@ -1,0 +1,17 @@
+<h1>{{publisher.name}}</h1>
+{{#if publisher.photo}}<img src="{{publisher.photo}}" alt="{{publisher.name}}" width="120" />{{/if}}
+<p>{{followers}} abonné(s)</p>
+
+<h2>Jeux</h2>
+<ul>
+    {{#each games}}
+        <li><a href="/games/{{id}}">{{title}}</a></li>
+    {{else}}
+        <li>Aucun jeu.</li>
+    {{/each}}
+</ul>
+
+<a href="/publishers/{{publisher.id}}/edit">Modifier</a>
+<form method="POST" action="/publishers/{{publisher.id}}/delete">
+    <button type="submit">Supprimer</button>
+</form>
